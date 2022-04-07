@@ -4,13 +4,14 @@ from discord.ext import commands
 from discord.ext.commands import has_permissions
 from urllib import request, parse
 from random import randint
+from jokes import *
 import datetime
-import sqlite3
 import re
 
 intents = discord.Intents.default()
 intents.members = True
-client = commands.Bot(command_prefix='!', description='A bot for the Discord server', intents=intents)
+client = commands.Bot(command_prefix='!', description='A bot for the Discord server', intents=intents, help_command=None)
+
 
 # if the b bot is on, the bot print some info
 @client.event
@@ -57,19 +58,12 @@ async def info(ctx):
 # send a joke to the chat from the DB
 @client.command()
 async def joke(ctx):
-    query = 'SELECT * FROM bad_jokes_short'
-    conn = sqlite3.connect('jokes.db') 
-    c = conn.cursor()
-    c.execute(query)
-    result = c.fetchall()
-    selected = result[randint(0, len(result))] 
+    selected = jokes[randint(0, len(jokes)-1)]
+    print(selected)
     user = ctx.message.author.mention
-    # if the joke no have punchline
-    if selected[2] == 0:
-        await ctx.send(f'{user} Here is your joke: \n\n>>> **{selected[1]}**' )
     # punchline in bold :)
-    await ctx.send(f'{user} Here is your joke: \n>>> {selected[1]}\n\n**{selected[2]}**\n' )
-    conn.close()
+    await ctx.send(f'{user} Here is your joke: \n>>> {selected["joke"]}\n\n**{selected["punchline"]}**\n' )
+    
 
 # join the voice channel
 @client.command(pass_context=True)
