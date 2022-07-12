@@ -1,4 +1,5 @@
 import json
+import aiohttp
 import discord
 from config import *
 from discord.ext import commands 
@@ -36,8 +37,9 @@ async def on_message(message):
     if message.author == client.user:
         return
     date = datetime.now().strftime('%d/%m/%Y - %H:%M:%S')
-    print(f'{message.author.name} said: {message.content} in {message.channel.name} at {date}')
     await client.process_commands(message)
+    print(f'{message.author.name} {message.content} at {date}')
+   
        
 
 # send a message in the welcome channel when a new member join the server
