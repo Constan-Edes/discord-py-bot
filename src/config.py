@@ -1,30 +1,49 @@
+from dotenv import load_dotenv
+from logging.config import dictConfig
 import os
-import discord
 
-# --- Change the configuration for run. ---
+load_dotenv()
 
-# 1- bot token (change it, keep it secret)
-TOKEN = os.environ.get('DS_TOKEN_BOT_1')
+DISCORD_TOKEN = os.getenv("TOKEN")
+COINMARKETCAP_API_KEY = os.getenv("COINMARKETCAP_API_KEY")
 
-# 2- local path to play music
-LOCAL_PATH =  os.environ.get("MUSIC_PLAY_PATH")
 
-# 3- channel id for welcome message
-WELCOME_CHANNEL_ID =  os.environ.get("DS_ID")
+LOGGING_CONFIG = {
+    "version": 1,
+    "disabled_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "%(levelname)-10s - %(asctime)s - %(module)-15s : %(message)s"
+        },
+        "standard": {"format": "%(levelname)-10s - %(name)-15s : %(message)s"},
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "standard",
+        },
+        "console2": {
+            "level": "WARNING",
+            "class": "logging.StreamHandler",
+            "formatter": "standard",
+        },
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": "logs/infos.log",
+            "mode": "w",
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {
+        "bot": {"handlers": ["console"], "level": "INFO", "propagate": False},
+        "discord": {
+            "handlers": ["console2", "file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
 
-# 4- coin market cap api key for cryptocurrency commands
-COINMARKETCAP_API_KEY = os.environ.get("COINMARKETCAP_API_KEY")
-
-# command prefix
-COMMAND_PREFIX = '='
-
-# description
-DESCRIPTION = 'A bot for the discord server'
-
-# intents
-INTENTS = discord.Intents.all()
-INTENTS.members = True
-
-#  your id for leave message
-AUTHOR_ID =  os.environ.get("AUTHOR_ID") #DELETE THIS LINE
-
+dictConfig(LOGGING_CONFIG)

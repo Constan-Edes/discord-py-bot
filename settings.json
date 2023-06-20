@@ -1,0 +1,6 @@
+{
+    "client": {
+        "command_prefix": "=",
+        "description": "A bot for the discord server"
+    }
+}
