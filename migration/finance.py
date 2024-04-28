@@ -1,17 +1,16 @@
-import discord
+from discord.ext.commands import Cog, command
 from requests import  Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
-from src.config import *
 import datetime
 import json
 
 
-class Finances(discord.ext.commands.Cog, name = "Finances"):
+class Finance(Cog, name = "Finances"):
     def __init__(self, bot):
         self.bot = bot
 
     # create a embed with info abput one cryptocurrency
-    @bot.command()
+    @command()
     async def crypto(ctx, coin):
         url = 'https://pro-api.coinmarketcap.com/v2/cryptocurrency/info'
         
