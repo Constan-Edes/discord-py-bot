@@ -9,13 +9,7 @@ class Multimedia(discord.ext.commands.Cog, name="Multimedia"):
 
     # ============ MULTIMEDIA FUNCTIONS  ============ # 
     # join the voice channel
-    @client.command(pass_context=True)
-    async def join(ctx):
-        if ctx.author.voice:
-            channel = ctx.author.voice.channel
-            await channel.connect()
-        else:
-            await ctx.send(f'You are not in a voice channel, you must be in one to use this command.')
+    
 
     # leave the voice channel
     @client.command(pass_context=True)

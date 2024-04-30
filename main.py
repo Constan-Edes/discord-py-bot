@@ -1,5 +1,4 @@
-import logging
-from config import settings
+from core.config import settings
 from client.client import CustomBot
 
 def main():
@@ -7,7 +6,7 @@ def main():
     bot.run(settings.BOT_TOKEN)
 
 
-    logger = logging.getLogger("discord")
+    '''logger = logging.getLogger("discord")
     logger.setLevel(logging.INFO)
     handler = logging.handlers.RotatingFileHandler(
         filename="discord.log",
@@ -20,7 +19,7 @@ def main():
         "[{asctime}] [{levelname:<8}] {name}: {message}", dt_fmt, style="{"
     )
     handler.setFormatter(formatter)
-    logger.addHandler(handler)
+    logger.addHandler(handler)'''
 
 
 
