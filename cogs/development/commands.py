@@ -9,7 +9,8 @@ class Commands(CogBase, name="Commands module", description="Bot Commands"):
     def __init__(self, bot: CustomBot):
         super().__init__(bot)
 
-    @app_commands.command(name="reload", description="Reloads a Cog Class")
+    @app_commands.command(name="reload", description="Reloads Cogs")
+    @app_commands.checks.cooldown(1, 5, key = lambda i: (i.user.id))
     @app_commands.check(is_owner)
     async def reload(self, interaction: Interaction):
         try:
