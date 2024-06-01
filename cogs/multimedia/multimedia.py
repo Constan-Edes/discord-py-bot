@@ -7,6 +7,14 @@ class Multimedia(CogBase, name="Multimedia module", description="Multimedia repr
     def __init__(self, bot: Bot):
         super().__init__(bot)
 
+        """ self.channel_options = create_option(
+            name="choice",
+            description="You can only choose a VC!",
+            option_type=SlashCommandOptionType.CHANNEL,
+            required=True
+        )
+        only_vc_option['channel_types'] = [2]
+        """
     @app_commands.command(name="join", description="Joins a voice channel")
     async def join(self, interaction: Interaction):
         vc = interaction.user.voice
@@ -15,6 +23,19 @@ class Multimedia(CogBase, name="Multimedia module", description="Multimedia repr
             return
         await vc.channel.connect()
         #await interaction.message.add_reaction(":white_check_mark:")
+
+
+
+    """  @commands.hybrid_command(name="join")
+    async def _connect(self, ctx: commands.Context, *, channel: discord.VoiceChannel | None = None):
+      node = wavelink.NodePool.get_node()
+      player = node.get_player(ctx.guild.id)
+      try:
+          channel = channel or ctx.author.channel.voice
+      except AttributeError:
+          return await ctx.send('No voice channel to connect to. Please either provide one or join one.')
+      player: wavelink.Player = await channel.connect(cls=wavelink.Player)
+      return player """
         
 
 async def setup(bot: Bot) -> None:
